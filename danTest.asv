@@ -1,0 +1,24 @@
+% clear all
+% close all
+
+
+[images,labels] = loadFaceImages('face_train.cdataset',5);
+
+% subplot(1,3,1)
+% testImg=images(1,:);% Show image
+% imshow(uint8(testImg));
+% 
+
+newImages=double.empty
+x=images(1,:)
+reshape(x,[27,18])
+m=size(images,1)
+for i=1:size(images)
+    x=images(i,:)
+    x=reshape(x,[27,18])
+    newImages(:,:,i)=x
+end
+
+figure(1)
+subplot(5,2,1),imshow(uint8(newImages(:,:,1)))
+subplot(5,2,2),imshow(uint8(newImages(:,:,2)))
