@@ -1,0 +1,17 @@
+clc
+clear all
+close all
+
+
+[trainImages,trainLabels] = loadFaceImages('face_train.cdataset', 1);
+
+subplot(1,3,1)
+testImg=(reshape(trainImages(1,:),[27,18]));% Show image
+imshow(uint8(testImg));
+
+
+
+Cas = GetHaarCasade('haarcascade_frontalface_alt.mat');
+ShowHaarCasade(Cas, 5)
+
+ObjectDetection(Picture,FilenameHaarcasade,Options)
