@@ -1,11 +1,11 @@
 function returnBoxes = simpleNMS(givenBoxes,threshold)
 
 
-returnBoxes = givenBoxes;
-toDelete = [];
+returnBoxes = double.empty;
 
 for k=1:size(givenBoxes,1)
     currentRectangle = givenBoxes(k,:);
+    add=true
 
     currentArea = currentRectangle(3)*currentRectangle(4);
     
@@ -18,24 +18,12 @@ for k=1:size(givenBoxes,1)
             
             % Delete
             if (currentIntersection / currentArea) > threshold
-                if (currentRectangle(5) > givenBoxes(j,5))
-                    toDelete = [toDelete,j];
-                else
-                    toDelete = [toDelete,k];
-                end
+                    add=false;
             end
         end
     end
-end
-
-
-%delete in descending order
-toDelete = sort(unique(toDelete),'descend');
-
-if ~isempty(toDelete)
-    % Delete all unnecessary rectangles
-    for k=1:size(toDelete,2)
-        returnBoxes(toDelete(k),:)=[];
+    if(add==true)
+        returnBoxes(k,:)=currentRectangle(1:4);
     end
 end
 
