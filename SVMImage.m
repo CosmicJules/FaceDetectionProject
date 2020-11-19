@@ -65,17 +65,13 @@ end
 
 save Image_SVM SVMmodel
 
-
-
-
-
 image=imread('im1.jpg')
 image=adapthisteq(image)
 imshow(image)
-windowSize=[18,27];
 facesBox = SVMDetector(image,SVMmodel);
 
 for i = 1:size(facesBox,1) 
-        rectangle('Position',[facesBox(i,:)]);
+
+    rectangle('Position',[facesBox(i,1),facesBox(i, 2),facesBox(i, 3) - facesBox(i, 1),facesBox(i, 4) - facesBox(i, 2)], 'EdgeColor','r','LineWidth',2);
 end
     

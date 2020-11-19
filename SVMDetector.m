@@ -13,5 +13,9 @@ function [faceDetections] = SVMDetector(image,model)
             index = index+1;
         end
     end
+    
+    
     faceDetections = detect(results == 1, :);
+    
+    %faceDetections = simpleNMS(faceDetections,0.5);
 end
