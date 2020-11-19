@@ -15,13 +15,13 @@ close all
 
 for i=1:size(trainImages,1)
     x=uint8(reshape(trainImages(i,:),[27,18]))
-    x=histeq(x)
+    x=adapthisteq(x)
     x=reshape(x,[1,486])
     trainImages(i,:)=x;
 end
 for i=1:size(testImages,1)
     x=uint8(reshape(testImages(i,:),[27,18]))
-    x=histeq(x)
+    x=adapthisteq(x)
     x=reshape(x,[1,486])
     testImages(i,:)=x;
 end
@@ -64,3 +64,18 @@ end
 % subplot(5,5,25), imshow(uint8(reshape(testImages(33,:),[27,18])))
 
 save Image_SVM SVMmodel
+
+
+
+
+
+image=imread('im1.jpg')
+image=adapthisteq(image)
+imshow(image)
+windowSize=[18,27];
+facesBox = SVMDetector(image,SVMmodel);
+
+for i = 1:size(facesBox,1) 
+        rectangle('Position',[facesBox(i,:)]);
+end
+    
