@@ -1,29 +1,38 @@
 function returnBoxes = simpleNMS(givenBoxes,threshold)
 
-
-returnBoxes = double.empty;
+returnBoxes = givenBoxes;
+toDelete = [];
 
 for k=1:size(givenBoxes,1)
-    currentRectangle = givenBoxes(k,:);
-    add=true
-
-    currentArea = currentRectangle(3)*currentRectangle(4);
+    curRect = givenBoxes(k,:);
     
-    % Loop over every other rectangle to determine intersection
+    curArea = curRect(3)*curRect(4);
+    
+    % Loop over every other rectangle and find intersections
     for j=1:size(givenBoxes,1)
-        currentIntersection = rectint(currentRectangle(1:4),givenBoxes(j,1:4));
+        curIntersect = rectint(curRect(1:4),givenBoxes(j,1:4));
         
-        % If the rectangles intersect (k is not j i.e. not the same rectangle)
-        if k ~= j && currentIntersection > 0
+        % If they intersect
+        if k ~= j && curIntersect > 0
             
-            % Delete
-            if (currentIntersection / currentArea) > threshold
-                    add=false;
+            % Delete based on confidence
+            if (curIntersect / curArea) > threshold
+                if (curRect(5) > givenBoxes(j,5))
+                    toDelete = [toDelete,j];
+                else
+                    toDelete = [toDelete,k];
+                end
             end
         end
     end
-    if(add==true)
-        returnBoxes(k,:)=currentRectangle(1:4);
+end
+
+toDelete = sort(unique(toDelete),'descend');
+
+if ~isempty(toDelete)
+    % Delete all unnecessary rectangles
+    for k=1:size(toDelete,2)
+        returnBoxes(toDelete(k),:)=[];
     end
 end
 
