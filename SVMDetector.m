@@ -8,8 +8,8 @@ function [faceDetections] = SVMDetector(image,model)
             search = [x, y, 17, 26];
             img = imcrop(image, search);
             img = double(reshape(img, [1, 486]))
-            results(index) = SVMTesting(img,model);
-            detect(index, 1:4) = [x,y,18,27];
+            [results(index), CONF(index)] = SVMTesting(img,model);
+            detect(index, 1:5) = [x,y,18,27,CONF(index)];
             index = index+1;
         end
     end
@@ -17,5 +17,5 @@ function [faceDetections] = SVMDetector(image,model)
     
     faceDetections = detect(results == 1, :);
     
-    %faceDetections = simpleNMS(faceDetections,0.1);
+    faceDetections = simpleNMS(faceDetections,0.5);
 end
