@@ -70,7 +70,7 @@ save Image_SVM SVMmodel
 figure(1)
 image1=imread('im1.jpg')
 image1=enhanceContrastLS(image1,1.1,  10)
-%image1=adapthisteq(image1)
+image1=adapthisteq(image1)
 imshow(image1)
 facesBox = SVMDetector(image1,SVMmodel);
 

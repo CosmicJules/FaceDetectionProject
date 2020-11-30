@@ -16,8 +16,8 @@ end
 
 for i = size(testArray) : -1:1
     
-    current = i;
-    next = i - 1;
+    current = i
+    next = i - 1
     
     while (testArray(current) < testArray(next)) && (next> 0)
         %switch position current, next
