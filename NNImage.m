@@ -9,6 +9,7 @@ for i=1:size(trainImages,1)
     x=uint8(reshape(trainImages(i,:),[27,18]))
     x=enhanceContrastLS(x,0.6,20)
     x=adapthisteq(x)
+    x=edgeExtraction(x,7,7)
     x=reshape(x,[1,486])
     trainImages(i,:)=x;
 end
@@ -16,6 +17,7 @@ for i=1:size(testImages,1)
     x=uint8(reshape(testImages(i,:),[27,18]))
     x=enhanceContrastLS(x,0.6,20)
     x=adapthisteq(x)
+    x=edgeExtraction(x,7,7)
     x=reshape(x,[1,486])
     testImages(i,:)=x;
 end

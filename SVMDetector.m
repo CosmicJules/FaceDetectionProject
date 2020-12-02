@@ -23,5 +23,6 @@ function [faceDetections] = SVMDetector(image,model)
     
     faceDetections = detect(results == 1, :);
     
-    faceDetections = simpleNMS(faceDetections,0.25);
+    %smaller threshold - fewer boxes
+    faceDetections = simpleNMS(faceDetections,0.45);
 end
