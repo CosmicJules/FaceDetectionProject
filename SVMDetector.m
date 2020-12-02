@@ -3,7 +3,7 @@ function [faceDetections] = SVMDetector(image,model)
     results = double.empty;
     detect = double.empty;
     index = 1;
-    sizes=[36,24;27,18];
+    sizes=[27,18];
     for j=1:size(sizes)
         windowWidth=sizes(j,2)
         windowHeight=sizes(j,1)
@@ -24,5 +24,5 @@ function [faceDetections] = SVMDetector(image,model)
     faceDetections = detect(results == 1, :);
     
     %smaller threshold - fewer boxes
-    faceDetections = simpleNMS(faceDetections,0.45);
+    faceDetections = simpleNMS(faceDetections,0.25);
 end
