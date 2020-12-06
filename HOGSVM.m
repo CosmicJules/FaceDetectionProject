@@ -1,52 +1,43 @@
 clear all
 close all
-[trainImages, trainLabels] = loadFaceImages('face_train.cdataset')
+[trainImages, trainLabels] = loadFaceImages('face_train.cdataset');
+
+% TRAINING
+HOGtrainMatrix = prepareHOG(trainImages);
+HOGSVMmodel = SVMtraining(HOGtrainMatrix,trainLabels);
 
 
-HOGMatrix = [];
-for img=1:size(trainImages,1)
-    curImg = trainImages(img,:);
-    
-    curImg = reshape(curImg,[27,18]);
-    
-    HOG = hog_feature_vector(curImg);
-    HOGMatrix = [HOGMatrix; HOG];
-end
-
-HOGmodel = SVMtraining(HOGMatrix,trainLabels);
-
+% TESTING
 [testImages, testLabels] = loadFaceImages('face_test.cdataset');
 
-correct=0;
-for img=1:size(testImages,1)
-    img
-    curImg = testImages(img,:);
-    curImg = reshape(curImg,[27,18]);
+HOGtestMatrix = prepareHOG(testImages);
+totalImages = size(HOGtestMatrix,1);
+classificationResults = zeros(totalImages,1);
+
+for i=1:totalImages
+curImg = HOGtestMatrix(i,:);
+classificationResults(i)=SVMTesting(curImg, HOGSVMmodel);
+end
+
+
+save Image_HOG_SVM HOGSVMmodel
+
+
+% RESULTS
     
-    HOG=hog_feature_vector(curImg);
-    correct = correct + (SVMTesting(HOG,HOGmodel)==testLabels(img));
+images{1} = imread('im1.jpg');    
+figure(1);
+   
+ImageforDetection = cell2mat(images(1));
+        
+ImageforDetection = adapthisteq(ImageforDetection);
+    
+imshow(ImageforDetection); 
+
+
+faceBox = HOGSVMDetector(ImageforDetection, HOGSVMmodel);
+
+
+for i = 1:size(faceBox,1) 
+    rectangle('Position',[faceBox(i,1),faceBox(i, 2),faceBox(i, 3),faceBox(i, 4)], 'EdgeColor','r','LineWidth',2);
 end
-
-save Image_HOG_SVM HOGmodel
-
-% subplot(1,2,1)
-% testimg=(reshape(trainImages(30,:),[27,18]));% Show image
-% imshow(uint8(testimg));
-% 
-% subplot(1,2,2)
-% testHog = hog_feature_vector(testimg);
-% showHog(testHog,[27 18])
-
-
-image=imread('im1.jpg')
-% image=adapthisteq(image)
-image = hog_feature_vector(image)
-imshow(image)
-facesBox = SVMDetector(image,HOGmodel);
-
-for i = 1:size(facesBox,1) 
-
-    rectangle('Position',[facesBox(i,1),facesBox(i, 2),facesBox(i, 3) - facesBox(i, 1),facesBox(i, 4) - facesBox(i, 2)], 'EdgeColor','r','LineWidth',2);
-end
-
-size(facesBox,1)
