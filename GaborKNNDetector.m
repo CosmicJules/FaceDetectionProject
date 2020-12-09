@@ -1,9 +1,9 @@
-function [faceDetections] = KNNDetector(image,model,K)
+function [faceDetections] = GaborKNNDetector(image,model,K)
     [width, height] = size(image);
     results = double.empty;
     detect = double.empty;
     index = 1;
-    sizes=[27,18];
+    sizes=[27,18;18,12];
 
     for j=1:size(sizes)
         windowWidth=sizes(j,2)
@@ -14,9 +14,10 @@ function [faceDetections] = KNNDetector(image,model,K)
                 img = imcrop(image, search);
                 img=imresize(img,[27,18]);
                 %img=edgeExtraction(img,7,7)
-                img = double(reshape(img, [1, 486]));
+                %img = double(reshape(img, [1, 486]));
+                img = gabor_feature_vector(img);
                 [results(index), distance(index)] = KNNTesting(img,model,K);
-                detect(index, 1:5) = [x,y,windowWidth,windowHeight,dist];
+                detect(index, 1:5) = [x,y,windowWidth,windowHeight,distance(index)];
                 index = index+1;
             end
         end
@@ -26,5 +27,5 @@ function [faceDetections] = KNNDetector(image,model,K)
     faceDetections = detect(results == 1, :);
 
     %smaller threshold - fewer boxes
-    %faceDetections = simpleNMS(faceDetections,0.45);
+    faceDetections = KNNsimpleNMS(faceDetections,0.25);
 end
