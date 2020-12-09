@@ -6,11 +6,11 @@ function prediction = NNTesting(testImage, modelNN)
     for i = 1:size(modelNN.neighbours)
         x=modelNN.neighbours(i,:);
         y = modelNN.labels(i,:);
-        distance=EuclideanDistance(testImage,x);
+        distance=EuclideanDistance(testImage,x)
        
         if distance<closestDist
-            closestLab= y
-            closestDist=distance
+            closestLab= y;
+            closestDist=distance;
         end
     end
     testImage=closestLab;

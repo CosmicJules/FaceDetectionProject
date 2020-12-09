@@ -1,4 +1,4 @@
-function [faceDetections] = SVMDetector(image,model)
+function [faceDetections] = GaborSVMDetector(image,model)
     [width, height] = size(image);
     results = double.empty;
     detect = double.empty;
