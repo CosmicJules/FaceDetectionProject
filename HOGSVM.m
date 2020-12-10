@@ -40,7 +40,7 @@ fprintf('\nModel Saved!');
 
 %% RESULTS
       
-image1=imread('im1.jpg');
+image1=imread('im3.jpg');
 image1=enhanceContrastLS(image1,1.1,  10);
 image1=adapthisteq(image1);
 
