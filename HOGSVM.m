@@ -36,6 +36,8 @@ fprintf('\nTesting Ending...');
 save Models/Image_HOG_SVM HOGSVMmodel
 fprintf('\nModel Saved!');
 
+
+
 %% RESULTS
       
 image1=imread('im1.jpg');

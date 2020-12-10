@@ -52,6 +52,8 @@ fprintf('\nTesting End...');
 save Models/Image_SVM SVMmodel;
 
 fprintf('\nModel Saved!');
+
+
 %% Results
 
 image1=imread('im1.jpg');

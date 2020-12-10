@@ -37,10 +37,17 @@ fprintf('\nTesting Ending...');
 save Models/Image_Gabor_KNN GaborKNNmodel
 fprintf('\nModel Saved!');
 
-%% EVALUATION
+%% Evaluation
 
 confusionMatrix=confusionmat(testLabels,classificationResults)
 
+accuracy=(confusionMatrix(1,1)+confusionMatrix(2,2))/240
+ErrorRate = (confusionMatrix(2,1)+confusionMatrix(1,2))/240
+Recall = (confusionMatrix(2,2))/(confusionMatrix(2,2)+confusionMatrix(2,1))
+Precision = (confusionMatrix(2,2))/(confusionMatrix(2,2)+confusionMatrix(1,2))
+Specificity = (confusionMatrix(1,1))/(confusionMatrix(1,1)+confusionMatrix(1,2))
+F1 = 2*((Precision*Recall)/(Precision + Recall))
+FalseAlarmRate = 1-Specificity
 
 %% RESULTS
     

@@ -37,6 +37,8 @@ fprintf('\nTesting Ending...');
 save Models/Image_Gabor_SVM GaborSVMmodel
 fprintf('\nModel Saved!');
 
+
+
 %% RESULTS
     
 image1=imread('im1.jpg');

@@ -44,7 +44,7 @@ KNNModel=NNtraining(trainImages,trainLabels);
 
 for i=1:size(testImages,1)
     x=testImages(i,:);
-    classificationResult(i,1) = KNNTesting(x,KNNModel,7);
+    classificationResult(i,1) = KNNTesting(x,KNNModel,1);
 
 end
 fprintf('\nTesting End...');
@@ -52,6 +52,18 @@ fprintf('\nTesting End...');
 save Models/Image_KNN KNNModel;
 
 fprintf('\nModel Saved!');
+%% Evaluation
+
+confusionMatrix=confusionmat(testLabels,classificationResult)
+
+accuracy=(confusionMatrix(1,1)+confusionMatrix(2,2))/240
+ErrorRate = (confusionMatrix(2,1)+confusionMatrix(1,2))/240
+Recall = (confusionMatrix(2,2))/(confusionMatrix(2,2)+confusionMatrix(2,1))
+Precision = (confusionMatrix(2,2))/(confusionMatrix(2,2)+confusionMatrix(1,2))
+Specificity = (confusionMatrix(1,1))/(confusionMatrix(1,1)+confusionMatrix(1,2))
+F1 = 2*((Precision*Recall)/(Precision + Recall))
+FalseAlarmRate = 1-Specificity
+
 %% Results
 
 image1=imread('im2.jpg');
