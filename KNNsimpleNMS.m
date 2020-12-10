@@ -1,5 +1,5 @@
 function returnBoxes = KNNsimpleNMS(givenBoxes,threshold)
-
+%all face bounding boxes input with an overlap threshold
 returnBoxes = givenBoxes;
 toDelete = [];
 
@@ -15,7 +15,8 @@ for k=1:size(givenBoxes,1)
         % If they intersect
         if k ~= j && curIntersect > 0
             
-            % Delete based on confidence
+            % Delete based on confidence, higher confidence stays, lower
+            % confidence deleted
             if (curIntersect / curArea) > threshold
                 if (curRect(5) >= givenBoxes(j,5))
                     toDelete = [toDelete,j];

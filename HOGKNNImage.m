@@ -50,13 +50,13 @@ FalseAlarmRate = 1-Specificity
 
 %% RESULTS
       
-image1=imread('im1.jpg');
+image1=imread('im3.jpg');
 image1=enhanceContrastLS(image1,1.1,  10);
 image1=adapthisteq(image1);
 
 fprintf('\nDetecting Faces in image...');
 
-facesBox = HOGKNNDetector(image1,HOGKNNmodel,9);
+facesBox = HOGKNNDetector(image1,HOGKNNmodel,3);
 FacesFound=size(facesBox,1);
 subplot(1,1,1);
 imshow(image1);

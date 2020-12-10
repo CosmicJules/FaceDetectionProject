@@ -44,7 +44,7 @@ KNNModel=NNtraining(trainImages,trainLabels);
 
 for i=1:size(testImages,1)
     x=testImages(i,:);
-    classificationResult(i,1) = KNNTesting(x,KNNModel,1);
+    classificationResult(i,1) = KNNTesting(x,KNNModel,9);
 
 end
 fprintf('\nTesting End...');
@@ -72,7 +72,7 @@ image1=adapthisteq(image1);
 
 fprintf('\nDetecting Faces in image...');
 
-facesBox = KNNDetector(image1,KNNModel,7);
+facesBox = KNNDetector(image1,KNNModel,9);
 FacesFound=size(facesBox,1);
 subplot(1,1,1);
 imshow(image1);

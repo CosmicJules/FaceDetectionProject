@@ -27,5 +27,5 @@ function [faceDetections] = KNNDetector(image,model,K)
     faceDetections = detect(results == 1, :);
 
     %smaller threshold - fewer boxes
-    %faceDetections = KNNsimpleNMS(faceDetections,0.3);
+    faceDetections = KNNsimpleNMS(faceDetections,0.3);
 end

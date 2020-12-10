@@ -1,5 +1,6 @@
 function [HOGMatrix] = prepareHOG(images)
-
+%takes an array of images, performs preprocessing and applies HOG feature
+%vector to  images and returns these images in an array
 totalImages = size(images,1);
 HOGMatrix=[];
 

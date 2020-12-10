@@ -1,5 +1,6 @@
 function [GaborMatrix] = prepareGabor(images)
-
+%takes an array of images, performs preprocessing and applies gabor feature
+%vector to  images and returns these images in an array
 totalImages = size(images,1);
 GaborMatrix=[];
 
