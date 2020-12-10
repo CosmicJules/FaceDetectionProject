@@ -7,7 +7,7 @@ function [faceDetections] = GaborKNNDetector(image,model,K)
     index = 1;
     %sizes array enables multi scale detecting, one size i.e. [27,18] means
     %single scale
-    sizes=[27,18];
+    sizes=[27,18;18,12;];
 
     for j=1:size(sizes)
         %set search window size based on sizes array
